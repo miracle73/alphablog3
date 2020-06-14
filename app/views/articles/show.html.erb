@@ -1,0 +1,29 @@
+
+<div class="col-sm-10">
+<div class="show">
+ <bold><h2 class="align2"> Title: <%= @article.title %> </h2></bold>
+<hr class="align3">
+<% if @article.categories.any? %>
+<% @article.categories.each do |name| %>
+<div class = "articlecategries">
+<ul>
+<li class = "badge badge-pill badge-info" ><%= name.name %></li>
+</div>
+<% end %>
+<% end %>
+
+<div class="article-description">
+<%= @article.description %> </p>
+<p> <%= time_ago_in_words(@article.created_at) %> ago </p>
+<p>Last updated at: <%= time_ago_in_words(@article.updated_at) %> ago </p>
+</div>
+
+  <% if logged_in? && (current_user == @article.user|| current_user.admin?) %>
+ <div class="articleactions">
+<%= link_to "Show all", articles_path,class: "btn btn-lg btn-success" %> 
+<%= link_to "Delete", article_path(@article),method: :delete, data:{confirm: "Are you sure?"},class: "btn btn-lg btn-danger" %>
+<%= link_to "Edit ", edit_article_path(@article), class: "btn btn-lg btn-primary" %>
+</div>
+<% end %>
+</div>
+</div>

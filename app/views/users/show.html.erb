@@ -1,0 +1,55 @@
+<h2 class="align5"><%= @user.username %>'s profile page</h2>
+<div class="row">
+<div class="col-md-12">
+<div class="center well2">
+<p>
+<%= gravatar_for @user %>
+</p>
+
+<h4 class="align4"><%= @user.username %>'s articles</h4>
+
+<% articl = @user.articles%>
+
+<% if articl.empty?   %>
+
+<h4 class="align4"><%= @user.username %>'s articles</h4> 
+<% else %>
+ <% @user.articles.each do |article| %>
+  <div class="row">
+   <div class="col-sm-12">
+    <div class="well">
+     <div class="article-title">
+       <%= link_to article.title , article_path(article)%>
+     </div>
+	 <% if article.categories.any? %>
+<% article.categories.each do |name| %>
+<div class = "articlecategries">
+<ul>
+<li class = "badge badge-pill badge-info" ><%= name.name %></li>
+</div>
+<% end %>
+<% end %>
+     <div class="article-body">
+      <%= truncate(article.description, length: 50) %>
+       <div class="article-meta-details">
+        Created by:<%= article.user.username if article.user%> 
+        <%= time_ago_in_words(article.created_at) %>ago<br/>
+        Last updated: <%= time_ago_in_words(article.updated_at) %>ago
+       </div>
+     </div>
+    </div>
+	  <% if logged_in? && (current_user == article.user || current_user.admin?) %>
+    <div class="articleactions2">
+     <%= link_to "Delete", article_path(article),method: :delete, data:{confirm: "Are you sure?"},class: "  btn-danger" %>
+     <%= link_to "Edit ", edit_article_path(article), class: " btn-primary" %>
+    </div>
+	<% end %>
+   </div>
+  </div>
+
+
+<% end%>
+ <%end%>
+</div>
+</div>
+</div>
