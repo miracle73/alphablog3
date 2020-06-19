@@ -6,11 +6,13 @@
   <%= link_to "logout", logout_path, method: :delete, class: "navbar-brand", id: "navbart2"  %>
    <%= link_to "Edit your profile", edit_user_path(current_user), class: "navbar-brand", id: "navbart2"  %>
      <%= link_to "Delete profile", users_path(current_user), class: "navbar-brand", id: "navbart2", method: :delete, data:{confirm: "Are you sure about this?"}  %>
+
   <% else %>
   
   <%= link_to "login", login_path, class: "navbar-brand", id: "navbart2"  %>
  
   <% end %>
+  
   <%= link_to "Home page", root_path, class: "navbar-brand", id: "navbart2"  %>
   
  
